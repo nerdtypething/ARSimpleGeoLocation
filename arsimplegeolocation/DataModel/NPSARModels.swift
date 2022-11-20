@@ -89,10 +89,10 @@ extension ModelAsset {
                   name: assetName,
                   thumbnailFile: thumbnailFile,
                   assetFile: assetFile,
-                  scale: SIMD3<Float>(0.01, 0.01, 0.01),
+                  scale: SIMD3<Float>(0.05, 0.05, 0.05),
                   orientationOnYAxis: 0,
-                  approachingDistance: 5.0,
-                  distanceAway: 10.0,
+                  approachingDistance: 10.0,
+                  distanceAway: 20.0,
                   latitude: place.latitude,
                   longitude: place.longitude,
                   altitude: place.altitude)

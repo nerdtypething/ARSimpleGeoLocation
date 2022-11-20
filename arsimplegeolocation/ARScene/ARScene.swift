@@ -83,9 +83,9 @@ extension ARScene {
             sceneState = .setup  // The scene was set up.
         } else {
             // update the virtual world
-            updateGeoEntities(currentDeviceLocation: currentDeviceLocation,
-                              currentDeviceTranslation: currentDeviceTranslation,
-                              assets: assets)
+//            updateGeoEntities(currentDeviceLocation: currentDeviceLocation,
+//                              currentDeviceTranslation: currentDeviceTranslation,
+//                              assets: assets)
         }
 
         lastDeviceLocation = currentDeviceLocation
@@ -137,8 +137,18 @@ extension ARScene {
                 let entityTranslation = deviceTranslation + diffXYZ
                 model.transform.translation = entityTranslation
 
+                let textEntity = ModelEntity(mesh: .generateText("Hello",
+                                                                 extrusionDepth: 0.4,
+                                                                 font: .boldSystemFont(ofSize: 1),
+                                                                 containerFrame: .zero,
+                                                                 alignment: .center,
+                                                                 lineBreakMode: .byWordWrapping))
+                textEntity.transform.translation = entityTranslation
+                
                 anchor.addChild(model)
                 geoEntities.append(geoEntity)
+                
+                anchor.addChild(textEntity)
                 
                 scale = model.scale(relativeTo: nil)
                 debugLog("model scale relative to parent: \(scale)")
@@ -148,6 +158,9 @@ extension ARScene {
                 }
 
                 debugLog("added the model `\($0.name)` to the virtual space.")
+                
+                anchor.addChild(textEntity)
+                
             } else {
                 fatalError("failed to load the Model file `\($0.assetFile)`.")
             }
