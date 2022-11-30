@@ -53,9 +53,13 @@ class ModelDataSet {
 //            latitude: 39.51996788283484,   // Tokyo station <== please change to a location near you
 //            longitude: -104.79974943077401, //               <== please change to a location near you
 //            altitude: 1804.0),        //               <== please change to a location near you
+        
+        // WES: To use the NPSPlace location local to you,
+        // replace ParkerOfficeDeskAppDebug() with the static function
+        // you created in NPSPlace.swift
         ModelAsset(assetName: "Plane",
                    thumbnailFile: "plane128",
-                   assetFile: "map_pointer",
+                   assetFile: "FortScott_Revised",
                    place: NPSPlace.ParkerOfficeDeskAppDebug())
     ]
 }

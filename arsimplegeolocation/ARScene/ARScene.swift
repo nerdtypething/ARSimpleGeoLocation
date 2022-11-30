@@ -127,7 +127,7 @@ extension ARScene {
                 var scale = model.scale(relativeTo: nil)
                 debugLog("model scale relative to parent: \(scale)")
                 model.orientation = simd_quatf(angle: $0.orientationOnYAxis,
-                                               axis: SIMD3<Float>(0, 1, 0))
+                                               axis: SIMD3<Float>(1, 0, 0))
                 model.scale = $0.scale
 
                 let entityLoc = LocationUtility.Location(latitude: $0.latitude,

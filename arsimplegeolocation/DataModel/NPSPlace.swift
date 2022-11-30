@@ -63,6 +63,9 @@ extension NPSPlace {
                         longitude: -104.79962,
                         altitude: 1803.0)
     }
+    
+    // WES: Copy pasta one of the above static functions
+    // and fill it with your local coordinates. 
 }
 
 extension NPSPlace {
