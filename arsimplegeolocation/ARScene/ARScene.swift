@@ -82,6 +82,7 @@ extension ARScene {
                              assets: assets)
             sceneState = .setup  // The scene was set up.
         } else {
+            // TEMP: commenting out for work on the extruded text.
             // update the virtual world
 //            updateGeoEntities(currentDeviceLocation: currentDeviceLocation,
 //                              currentDeviceTranslation: currentDeviceTranslation,

@@ -7,19 +7,6 @@
 
 import Foundation
 
-/// A type that defines geographic coordinates.
-public protocol GeographicallyPlaceable {
-    
-    /// A latitude specified in degrees.
-    var latitude: Double { get }
-    
-    /// A longitude specified in degrees.
-    var longitude: Double { get }
-    
-    /// An altitude specified  in meters.
-    var altitude: Double { get }
-}
-
 /// A place as defined by the NPS places API.
 struct NPSPlace: GeographicallyPlaceable {
     // https://www.nps.gov/subjects/developer/api-documentation.htm#/places/getPlaces
@@ -78,23 +65,34 @@ extension NPSPlace {
     }
 }
 
-extension ModelAsset {
+extension NPSPlace {
+    static func Well() -> NPSPlace {
+        return NPSPlace(latitude: 39.530444,
+                        longitude: -77.642324,
+                        altitude: 225.86)
+    }
     
-    init(assetName: String,
-         thumbnailFile: String,
-         assetFile: String,
-         place: GeographicallyPlaceable) {
-        
-        self.init(id: UUID(),
-                  name: assetName,
-                  thumbnailFile: thumbnailFile,
-                  assetFile: assetFile,
-                  scale: SIMD3<Float>(0.05, 0.05, 0.05),
-                  orientationOnYAxis: 0,
-                  approachingDistance: 10.0,
-                  distanceAway: 20.0,
-                  latitude: place.latitude,
-                  longitude: place.longitude,
-                  altitude: place.altitude)
+    static func FirePit() -> NPSPlace {
+        return NPSPlace(latitude: 39.53059,
+                        longitude: -77.642589,
+                        altitude: 225.86)
+    }
+    
+    static func Swing() -> NPSPlace {
+        return NPSPlace(latitude: 39.530028,
+                        longitude: -77.642670,
+                        altitude: 225.86)
+    }
+    
+    static func Trampoline() -> NPSPlace {
+        return NPSPlace(latitude: 39.530125,
+                        longitude: -77.642504,
+                        altitude: 225.86)
+    }
+    
+    static func Garden() -> NPSPlace {
+        return NPSPlace(latitude: 39.530153,
+                        longitude: -77.642404,
+                        altitude: 225.86)
     }
 }

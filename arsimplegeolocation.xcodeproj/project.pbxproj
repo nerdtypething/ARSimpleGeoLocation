@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB470A14291086B100FF2C50 /* NPSARModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470A13291086B100FF2C50 /* NPSARModels.swift */; };
+		AB2615802937018500E982F1 /* ModelAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB26157F2937018500E982F1 /* ModelAsset+Extensions.swift */; };
+		AB261582293701F000E982F1 /* GeographicallyPlaceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB261581293701F000E982F1 /* GeographicallyPlaceable.swift */; };
+		AB2615842937030C00E982F1 /* FortScott_Revised.usdz in Resources */ = {isa = PBXBuildFile; fileRef = AB2615832937030C00E982F1 /* FortScott_Revised.usdz */; };
+		AB470A14291086B100FF2C50 /* NPSPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB470A13291086B100FF2C50 /* NPSPlace.swift */; };
 		AB7BA9252921572E0038A5C1 /* map_pointer.usdz in Resources */ = {isa = PBXBuildFile; fileRef = AB7BA9242921572E0038A5C1 /* map_pointer.usdz */; };
 		BA0557A7285D808800948C32 /* arsimplegeolocationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0557A6285D808800948C32 /* arsimplegeolocationApp.swift */; };
 		BA0557A9285D808800948C32 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0557A8285D808800948C32 /* HomeView.swift */; };
@@ -31,7 +34,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AB470A13291086B100FF2C50 /* NPSARModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NPSARModels.swift; sourceTree = "<group>"; };
+		AB26157F2937018500E982F1 /* ModelAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModelAsset+Extensions.swift"; sourceTree = "<group>"; };
+		AB261581293701F000E982F1 /* GeographicallyPlaceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeographicallyPlaceable.swift; sourceTree = "<group>"; };
+		AB2615832937030C00E982F1 /* FortScott_Revised.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = FortScott_Revised.usdz; sourceTree = "<group>"; };
+		AB470A13291086B100FF2C50 /* NPSPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NPSPlace.swift; sourceTree = "<group>"; };
 		AB7BA9242921572E0038A5C1 /* map_pointer.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = map_pointer.usdz; sourceTree = "<group>"; };
 		BA0557A3285D808800948C32 /* arsimplegeolocation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arsimplegeolocation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0557A6285D808800948C32 /* arsimplegeolocationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = arsimplegeolocationApp.swift; sourceTree = "<group>"; };
@@ -68,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB26157E2937015E00E982F1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AB26157F2937018500E982F1 /* ModelAsset+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BA05579A285D808800948C32 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +102,7 @@
 		BA0557A5285D808800948C32 /* arsimplegeolocation */ = {
 			isa = PBXGroup;
 			children = (
+				AB26157E2937015E00E982F1 /* Extensions */,
 				BA0557B5285D887200948C32 /* Info.plist */,
 				BA0557A6285D808800948C32 /* arsimplegeolocationApp.swift */,
 				BA0557B8285D911B00948C32 /* Views */,
@@ -126,10 +141,11 @@
 		BA0557B9285D913A00948C32 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				AB470A13291086B100FF2C50 /* NPSARModels.swift */,
+				AB470A13291086B100FF2C50 /* NPSPlace.swift */,
 				BA0557BA285D916500948C32 /* ModelAsset.swift */,
 				BA0557CF285EDC9400948C32 /* ModelDataSet.swift */,
 				BA0557C6285DAB5200948C32 /* DeviceLocation.swift */,
+				AB261581293701F000E982F1 /* GeographicallyPlaceable.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -137,6 +153,7 @@
 		BA0557BC285D91E400948C32 /* ModelAssets */ = {
 			isa = PBXGroup;
 			children = (
+				AB2615832937030C00E982F1 /* FortScott_Revised.usdz */,
 				AB7BA9242921572E0038A5C1 /* map_pointer.usdz */,
 				BA0557CD285EDC2D00948C32 /* toy_drummer.usdz */,
 				BA80100D285FFA2900897E3D /* toy_robot_vintage.usdz */,
@@ -241,6 +258,7 @@
 				BA801010285FFA3200897E3D /* toy_biplane.usdz in Resources */,
 				AB7BA9252921572E0038A5C1 /* map_pointer.usdz in Resources */,
 				BA0557AE285D808A00948C32 /* Preview Assets.xcassets in Resources */,
+				AB2615842937030C00E982F1 /* FortScott_Revised.usdz in Resources */,
 				BA0557AB285D808A00948C32 /* Assets.xcassets in Resources */,
 				BA0557CE285EDC2D00948C32 /* toy_drummer.usdz in Resources */,
 			);
@@ -276,16 +294,18 @@
 			files = (
 				BA0557A9285D808800948C32 /* HomeView.swift in Sources */,
 				BA0557BE285D9A6500948C32 /* ARContainerView.swift in Sources */,
+				AB2615802937018500E982F1 /* ModelAsset+Extensions.swift in Sources */,
 				BA0557A7285D808800948C32 /* arsimplegeolocationApp.swift in Sources */,
 				BA6539E6285F31B6005D06E1 /* LocationUtility.swift in Sources */,
 				BA0557CC285DAF7300948C32 /* AppStateController.swift in Sources */,
 				BA0557C9285DAEEC00948C32 /* ARLocationView.swift in Sources */,
-				AB470A14291086B100FF2C50 /* NPSARModels.swift in Sources */,
+				AB470A14291086B100FF2C50 /* NPSPlace.swift in Sources */,
 				BA0557C0285D9AA000948C32 /* ARViewController.swift in Sources */,
 				BA801013286001F000897E3D /* AppSettings.swift in Sources */,
 				BA0557C3285D9AD400948C32 /* ARScene.swift in Sources */,
 				BA0557D0285EDC9400948C32 /* ModelDataSet.swift in Sources */,
 				BA801008285FEB1000897E3D /* debugLog.swift in Sources */,
+				AB261582293701F000E982F1 /* GeographicallyPlaceable.swift in Sources */,
 				BA0557BB285D916500948C32 /* ModelAsset.swift in Sources */,
 				BA0557C7285DAB5200948C32 /* DeviceLocation.swift in Sources */,
 				BA0557B7285D903E00948C32 /* SettingsView.swift in Sources */,
