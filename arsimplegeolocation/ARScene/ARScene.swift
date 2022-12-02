@@ -72,9 +72,17 @@ extension ARScene {
         let horizontalAccuracyLimit = (sceneState == .none) ? 5.0 : 4.9
         let verticalAccuracyLimit = (sceneState == .none) ? 5.0 : 3.1
         
-//        if let textEntity = self._textEntity {
-//            textEntity.look(at: textEntity.position(relativeTo: nil), from: self.arView.cameraTransform.translation, relativeTo: nil)
-//            textEntity.orientation = simd_quatf(angle: 3.14, axis: SIMD3<Float>(1, 0, 0))
+        // this delegate happens too slowly to update the orientation of the text
+//        if let textEntity = self._textEntity,
+//           let geoEntity = self.geoEntities.first,
+//           let device {
+//            textEntity.removeFromParent()
+//            self.addGeoEntityLabel(anchor: self.anchor,
+//                                   entity: geoEntity,
+//                                   deviceLocation: LocationUtility.Location(latitude: device.latitude,
+//                                                                            longitude: device.longitude,
+//                                                                            altitude: device.altitude),
+//                                   deviceTranslation: arView.cameraTransform.translation)
 //        }
         
         guard let device,
@@ -153,13 +161,30 @@ extension ARScene {
                     model.playAnimation(animation.repeat())
                 }
                 
+                self.arView.scene.subscribe(to: SceneEvents.Update.self, { _ in
+                    debugLog("()()()()()()() scene updated ()()()()()()()")
+                    if let textEntity = self._textEntity,
+                       let geoEntity = self.geoEntities.first {
+                        textEntity.removeFromParent()
+                        self.addGeoEntityLabel(anchor: self.anchor,
+                                               entity: geoEntity,
+                                               deviceLocation: LocationUtility.Location(latitude: self.lastDeviceLocation.latitude,
+                                                                                        longitude: self.lastDeviceLocation.longitude,
+                                                                                        altitude: self.lastDeviceLocation.altitude),
+                                               deviceTranslation: self.arView.cameraTransform.translation)
+                    }
+                })
+                
             } else {
                 fatalError("failed to load the Model file `\($0.assetFile)`.")
             }
         }
     }
     
-    private func addGeoEntityLabel(anchor: AnchorEntity, entity: GeoEntity, deviceLocation: LocationUtility.Location, deviceTranslation: SIMD3<Float>) {
+    private func addGeoEntityLabel(anchor: AnchorEntity,
+                                   entity: GeoEntity,
+                                   deviceLocation: LocationUtility.Location,
+                                   deviceTranslation: SIMD3<Float>) {
         self._textLoc = LocationUtility.Location(latitude: entity.latitude, longitude: entity.longitude, altitude: entity.altitude + 1.0)
         self._textDiffXYZ = LocationUtility.locationDiff(base: deviceLocation, from: self._textLoc)
         self._textTranslation = deviceTranslation + self._textDiffXYZ
@@ -170,9 +195,10 @@ extension ARScene {
                                                          containerFrame: .zero,
                                                          alignment: .center,
                                                          lineBreakMode: .byWordWrapping))
-        self._textEntity!.transform.translation = self._textTranslation
-        anchor.addChild(self._textEntity!)
         
+        self._textEntity!.transform.translation = self._textTranslation
+        self._textEntity!.look(at: self.arView.cameraTransform.translation, from: self._textTranslation, relativeTo: nil)
+        anchor.addChild(self._textEntity!)
     }
 
     private func updateGeoEntities(currentDeviceLocation: DeviceLocation,
