@@ -12,7 +12,11 @@ import Combine
 final class ARScene {
     private var anchor: AnchorEntity!
     private var arView: ARView!
-
+    private var _textEntity: ModelEntity?
+    private var _textLoc: LocationUtility.Location
+    private var _textDiffXYZ: SIMD3<Float>
+    private var _textTranslation: SIMD3<Float>
+    
     enum SceneState: Int {
         case none = 0, setup
     }
@@ -33,6 +37,9 @@ final class ARScene {
     init(arView: ARView, anchor: AnchorEntity) {
         self.anchor = anchor
         self.arView = arView
+        self._textLoc = LocationUtility.Location(latitude: 0.0, longitude: 0.0, altitude: 0.0)
+        self._textDiffXYZ = SIMD3<Float>(0.0, 0.0, 0.0)
+        self._textTranslation = SIMD3<Float>(0.0, 0.0, 0.0)
     }
 
     func setupScene() {
@@ -64,6 +71,11 @@ extension ARScene {
         
         let horizontalAccuracyLimit = (sceneState == .none) ? 5.0 : 4.9
         let verticalAccuracyLimit = (sceneState == .none) ? 5.0 : 3.1
+        
+//        if let textEntity = self._textEntity {
+//            textEntity.look(at: textEntity.position(relativeTo: nil), from: self.arView.cameraTransform.translation, relativeTo: nil)
+//            textEntity.orientation = simd_quatf(angle: 3.14, axis: SIMD3<Float>(1, 0, 0))
+//        }
         
         guard let device,
               !assets.isEmpty,
@@ -108,7 +120,8 @@ extension ARScene {
         })
 
         addGeoEntities(deviceTranslation: currentDeviceTranslation,
-                       deviceLoc: deviceLoc, addingAssets: addingAssets)
+                       deviceLoc: deviceLoc,
+                       addingAssets: addingAssets)
     }
 
     private func addGeoEntities(deviceTranslation: SIMD3<Float>,
@@ -124,48 +137,42 @@ extension ARScene {
                                           distanceAway: $0.distanceAway,
                                           entity: model)
                 
-                var scale = model.scale(relativeTo: nil)
-                debugLog("model scale relative to parent: \(scale)")
-                model.orientation = simd_quatf(angle: $0.orientationOnYAxis,
-                                               axis: SIMD3<Float>(1, 0, 0))
+                model.orientation = simd_quatf(angle: $0.orientationOnYAxis, axis: SIMD3<Float>(1, 0, 0))
                 model.scale = $0.scale
-
-                let entityLoc = LocationUtility.Location(latitude: $0.latitude,
-                                 longitude: $0.longitude,
-                                 altitude: $0.altitude)
-                let diffXYZ = LocationUtility.locationDiff(base: deviceLoc,
-                                                                from: entityLoc)
-                let entityTranslation = deviceTranslation + diffXYZ
+                let entityLoc = LocationUtility.Location(latitude: $0.latitude, longitude: $0.longitude, altitude: $0.altitude)
+                let entityDiffXYZ = LocationUtility.locationDiff(base: deviceLoc, from: entityLoc)
+                let entityTranslation = deviceTranslation + entityDiffXYZ
                 model.transform.translation = entityTranslation
-
-                let textEntity = ModelEntity(mesh: .generateText("Hello",
-                                                                 extrusionDepth: 0.4,
-                                                                 font: .boldSystemFont(ofSize: 1),
-                                                                 containerFrame: .zero,
-                                                                 alignment: .center,
-                                                                 lineBreakMode: .byWordWrapping))
-                textEntity.transform.translation = entityTranslation
                 
                 anchor.addChild(model)
                 geoEntities.append(geoEntity)
                 
-                anchor.addChild(textEntity)
+                self.addGeoEntityLabel(anchor: self.anchor, entity: geoEntity, deviceLocation: deviceLoc, deviceTranslation: deviceTranslation)
                 
-                scale = model.scale(relativeTo: nil)
-                debugLog("model scale relative to parent: \(scale)")
-
                 if let animation = model.availableAnimations.first {
                     model.playAnimation(animation.repeat())
                 }
-
-                debugLog("added the model `\($0.name)` to the virtual space.")
-                
-                anchor.addChild(textEntity)
                 
             } else {
                 fatalError("failed to load the Model file `\($0.assetFile)`.")
             }
         }
+    }
+    
+    private func addGeoEntityLabel(anchor: AnchorEntity, entity: GeoEntity, deviceLocation: LocationUtility.Location, deviceTranslation: SIMD3<Float>) {
+        self._textLoc = LocationUtility.Location(latitude: entity.latitude, longitude: entity.longitude, altitude: entity.altitude + 1.0)
+        self._textDiffXYZ = LocationUtility.locationDiff(base: deviceLocation, from: self._textLoc)
+        self._textTranslation = deviceTranslation + self._textDiffXYZ
+        
+        self._textEntity = ModelEntity(mesh: .generateText("Hello",
+                                                         extrusionDepth: 0.01,
+                                                         font: .systemFont(ofSize: 0.5),
+                                                         containerFrame: .zero,
+                                                         alignment: .center,
+                                                         lineBreakMode: .byWordWrapping))
+        self._textEntity!.transform.translation = self._textTranslation
+        anchor.addChild(self._textEntity!)
+        
     }
 
     private func updateGeoEntities(currentDeviceLocation: DeviceLocation,
