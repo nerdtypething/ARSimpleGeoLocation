@@ -22,10 +22,15 @@ class ModelDataSet {
         
         ModelAsset(assetName: "Plane",
                    thumbnailFile: "plane128",
-                   assetFile: "FortScott_Revised",
-                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
-                   scale: SIMD3<Float>(0.001, 0.001, 0.001),
-                   orientationOnAxis: -1.5708,
-                   orientationAxis: .X)
+                   assetFile: "map_pointer",
+                   place: NPSPlace.ParkerOfficeDeskAppDebug())
+        
+//        ModelAsset(assetName: "Plane",
+//                   thumbnailFile: "plane128",
+//                   assetFile: "FortScott_Revised",
+//                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
+//                   scale: SIMD3<Float>(0.001, 0.001, 0.001),
+//                   orientationOnAxis: -1.5708,
+//                   orientationAxis: .X)
     ]
 }
