@@ -10,56 +10,22 @@ import Foundation
 class ModelDataSet {
     private init() {}
 
+//    static let dataset = ModelAsset.makeDefaultDataSet()
+    
     // Add model assets you want to display in AR scenes
     static let dataSet: [ModelAsset] = [
-        // (c)Apple, from Apple AR Quick Library
-        // https://developer.apple.com/augmented-reality/quick-look/
-        // size (x, y, z) = (6, 7.32, 4.63) [m]
-//        ModelAsset(
-//            id: UUID(),
-//            name: "Drummer",
-//            thumbnailFile: "drummer128",
-//            assetFile: "toy_drummer",
-//            scale: SIMD3<Float>(1, 1, 1),
-//            orientationOnYAxis: 0,
-//            approachingDistance: 10.0, // [m]
-//            distanceAway: 20.0, // [m]
-//            latitude: 35.68157,   // Tokyo station <== please change to a location near you
-//            longitude: 139.76561, //               <== please change to a location near you
-//            altitude: 3.5),       //               <== please change to a location near you
-//
-//        ModelAsset(
-//            id: UUID(),
-//            name: "Robot",
-//            thumbnailFile: "robot128",
-//            assetFile: "toy_robot_vintage",
-//            scale: SIMD3<Float>(1, 1, 1),
-//            orientationOnYAxis: 0,
-//            approachingDistance: 10.0, // [m]
-//            distanceAway: 20.0, // [m]
-//            latitude: 35.68138,   // Tokyo station <== please change to a location near you
-//            longitude: 139.76543, //               <== please change to a location near you
-//            altitude: 3.5),       //               <== please change to a location near you
-
-//        ModelAsset(
-//            id: UUID(),
-//            name: "Plane",
-//            thumbnailFile: "plane128",
-//            assetFile: "toy_biplane",
-//            scale: SIMD3<Float>(1, 1, 1),
-//            orientationOnYAxis: 0,
-//            approachingDistance: 10.0, // [m]
-//            distanceAway: 20.0, // [m]
-//            latitude: 39.51996788283484,   // Tokyo station <== please change to a location near you
-//            longitude: -104.79974943077401, //               <== please change to a location near you
-//            altitude: 1804.0),        //               <== please change to a location near you
+//        ModelAsset(assetName: "Plane",
+//                   thumbnailFile: "plane128",
+//                   assetFile: "toy_biplane",
+//                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
+//                   scale: SIMD3<Float>(0.1, 0.1, 0.1))
         
-        // WES: To use the NPSPlace location local to you,
-        // replace ParkerOfficeDeskAppDebug() with the static function
-        // you created in NPSPlace.swift
         ModelAsset(assetName: "Plane",
                    thumbnailFile: "plane128",
                    assetFile: "FortScott_Revised",
-                   place: NPSPlace.ParkerOfficeDeskAppDebug())
+                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
+                   scale: SIMD3<Float>(0.001, 0.001, 0.001),
+                   orientationOnAxis: -1.5708,
+                   orientationAxis: .X)
     ]
 }

@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum ModelOrientationAxis {
+    case X
+    case Y
+    case Z
+}
+
 struct ModelAsset: Identifiable {
     let id: UUID
     let name: String           // asset name
@@ -14,7 +20,8 @@ struct ModelAsset: Identifiable {
     let assetFile: String      // USDZ or reality file name in bundle
 
     let scale: SIMD3<Float>    // display scale
-    let orientationOnYAxis: Float   // [rad]
+    let orientationOnAxis: Float   // [rad]
+    let orientationAxis: ModelOrientationAxis
     let approachingDistance: Double // [m]
     let distanceAway: Double // [m]
 

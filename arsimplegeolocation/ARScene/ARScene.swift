@@ -69,8 +69,8 @@ extension ARScene {
     func updateLocation(device: DeviceLocation?, assets: [ModelAsset]) {
         debugLog("updateLocation(device:assets:) was called.")
         
-        let horizontalAccuracyLimit = (sceneState == .none) ? 5.0 : 4.9
-        let verticalAccuracyLimit = (sceneState == .none) ? 5.0 : 3.1
+        let horizontalAccuracyLimit = (sceneState == .none) ? 6.0 : 4.9
+        let verticalAccuracyLimit = (sceneState == .none) ? 6.0 : 3.1
         
         // this delegate happens too slowly to update the orientation of the text
 //        if let textEntity = self._textEntity,
@@ -145,7 +145,19 @@ extension ARScene {
                                           distanceAway: $0.distanceAway,
                                           entity: model)
                 
-                model.orientation = simd_quatf(angle: $0.orientationOnYAxis, axis: SIMD3<Float>(1, 0, 0))
+                var orientationAxis = SIMD3<Float>(1, 0, 0)
+                switch ($0.orientationAxis) {
+                    case .X:
+                        orientationAxis = SIMD3<Float>(1, 0, 0)
+                        break
+                    case .Y:
+                        orientationAxis = SIMD3<Float>(0, 1, 0)
+                        break
+                    case .Z:
+                        orientationAxis = SIMD3<Float>(0, 0, 1)
+                        break
+                }
+                model.orientation = simd_quatf(angle: $0.orientationOnAxis, axis: orientationAxis)
                 model.scale = $0.scale
                 let entityLoc = LocationUtility.Location(latitude: $0.latitude, longitude: $0.longitude, altitude: $0.altitude)
                 let entityDiffXYZ = LocationUtility.locationDiff(base: deviceLoc, from: entityLoc)
@@ -161,19 +173,19 @@ extension ARScene {
                     model.playAnimation(animation.repeat())
                 }
                 
-                self.arView.scene.subscribe(to: SceneEvents.Update.self, { _ in
-                    debugLog("()()()()()()() scene updated ()()()()()()()")
-                    if let textEntity = self._textEntity,
-                       let geoEntity = self.geoEntities.first {
-                        textEntity.removeFromParent()
-                        self.addGeoEntityLabel(anchor: self.anchor,
-                                               entity: geoEntity,
-                                               deviceLocation: LocationUtility.Location(latitude: self.lastDeviceLocation.latitude,
-                                                                                        longitude: self.lastDeviceLocation.longitude,
-                                                                                        altitude: self.lastDeviceLocation.altitude),
-                                               deviceTranslation: self.arView.cameraTransform.translation)
-                    }
-                })
+//                self.arView.scene.subscribe(to: SceneEvents.Update.self, { _ in
+//                    debugLog("()()()()()()() scene updated ()()()()()()()")
+//                    if let textEntity = self._textEntity,
+//                       let geoEntity = self.geoEntities.first {
+//                        textEntity.removeFromParent()
+//                        self.addGeoEntityLabel(anchor: self.anchor,
+//                                               entity: geoEntity,
+//                                               deviceLocation: LocationUtility.Location(latitude: self.lastDeviceLocation.latitude,
+//                                                                                        longitude: self.lastDeviceLocation.longitude,
+//                                                                                        altitude: self.lastDeviceLocation.altitude),
+//                                               deviceTranslation: self.arView.cameraTransform.translation)
+//                    }
+//                })
                 
             } else {
                 fatalError("failed to load the Model file `\($0.assetFile)`.")
