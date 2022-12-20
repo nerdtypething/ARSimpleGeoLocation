@@ -15,7 +15,9 @@ extension ModelAsset {
          place: GeographicallyPlaceable,
          scale: SIMD3<Float> = SIMD3<Float>(1.0, 1.0, 1.0),
          orientationOnAxis: Float = 0.0,
-         orientationAxis: ModelOrientationAxis = .X) {
+         orientationAxis: ModelOrientationAxis = .X,
+         approachingDistance: Double = 10.0,
+         distanceaway: Double = 20.0) {
         
         self.init(id: UUID(),
                   name: assetName,
@@ -24,8 +26,8 @@ extension ModelAsset {
                   scale: scale,
                   orientationOnAxis: orientationOnAxis,
                   orientationAxis: orientationAxis,
-                  approachingDistance: 10.0,
-                  distanceAway: 20.0,
+                  approachingDistance: approachingDistance,
+                  distanceAway: distanceaway,
                   latitude: place.latitude,
                   longitude: place.longitude,
                   altitude: place.altitude)

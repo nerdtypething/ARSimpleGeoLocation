@@ -20,12 +20,15 @@ class ModelDataSet {
 //                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
 //                   scale: SIMD3<Float>(0.1, 0.1, 0.1))
         
-        ModelAsset(assetName: "Plane",
+        ModelAsset(assetName: "MapPointer",
                    thumbnailFile: "plane128",
                    assetFile: "map_pointer",
-                   place: NPSPlace.ParkerOfficeDeskAppDebug())
+                   place: NPSPlace.ParkerOfficeDeskAppDebug(),
+                   scale: SIMD3<Float>(0.1, 0.1, 0.1),
+                   approachingDistance: 30.0,
+                   distanceaway: 60.0)
         
-//        ModelAsset(assetName: "Plane",
+//        ModelAsset(assetName: "FortScott",
 //                   thumbnailFile: "plane128",
 //                   assetFile: "FortScott_Revised",
 //                   place: NPSPlace.ParkerOfficeDeskAppDebug(),

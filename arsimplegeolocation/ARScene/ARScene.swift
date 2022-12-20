@@ -69,8 +69,8 @@ extension ARScene {
     func updateLocation(device: DeviceLocation?, assets: [ModelAsset]) {
         debugLog("updateLocation(device:assets:) was called.")
         
-        let horizontalAccuracyLimit = (sceneState == .none) ? 6.0 : 4.9
-        let verticalAccuracyLimit = (sceneState == .none) ? 6.0 : 3.1
+        let horizontalAccuracyLimit = (sceneState == .none) ? 7.0 : 4.9
+        let verticalAccuracyLimit = (sceneState == .none) ? 7.0 : 3.1
         
         // this delegate happens too slowly to update the orientation of the text
 //        if let textEntity = self._textEntity,
@@ -169,9 +169,9 @@ extension ARScene {
                 
                 self.addGeoEntityLabel(anchor: self.anchor, entity: geoEntity, deviceLocation: deviceLoc, deviceTranslation: deviceTranslation)
                 
-                if let animation = model.availableAnimations.first {
-                    model.playAnimation(animation.repeat())
-                }
+//                if let animation = model.availableAnimations.first {
+//                    model.playAnimation(animation.repeat())
+//                }
                 
 //                self.arView.scene.subscribe(to: SceneEvents.Update.self, { _ in
 //                    debugLog("()()()()()()() scene updated ()()()()()()()")
